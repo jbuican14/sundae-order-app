@@ -2,12 +2,14 @@ import axios from "axios";
 import React, {useEffect, useState} from "react";
 import {Row} from "react-bootstrap";
 
+import AlertBanner from '../common/AlertBanner';
 import ScoopOption from "./ScoopOption";
 import ToppingOption from './ToppingOption';
 
 // eslint-disable-next-line react/prop-types
 export default function Options({optionType}) {
   const [items, setItems] = useState([]);
+  const [error, setError] = useState(false); 
 
   useEffect(() => {
     // optionType is 'scoops' or 'toppings'
@@ -16,9 +18,13 @@ export default function Options({optionType}) {
       .then((res) => setItems(res.data))
       // eslint-disable-next-line no-unused-vars
       .catch((err) => {
-        // TODO: handle error response
+        setError(true)
       });
   }, [optionType]);
+
+  if(error) {
+   return <AlertBanner />;
+  }
 
   const ItemComponent = optionType === "scoops" ? ScoopOption : ToppingOption;
 
