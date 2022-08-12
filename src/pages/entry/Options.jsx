@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, {useEffect, useState} from "react";
 import {Row} from "react-bootstrap";
+import { pricePerItem } from '../../constants';
+import { useOrderDetails } from '../../contexts/OrderDetails';
 
 import AlertBanner from '../common/AlertBanner';
 import ScoopOption from "./ScoopOption";
@@ -10,6 +12,7 @@ import ToppingOption from './ToppingOption';
 export default function Options({optionType}) {
   const [items, setItems] = useState([]);
   const [error, setError] = useState(false); 
+  const [OrderDetails, updateItemCount] = useOrderDetails();
 
   useEffect(() => {
     // optionType is 'scoops' or 'toppings'
@@ -33,7 +36,15 @@ export default function Options({optionType}) {
       key={item.name}
       name={item.name}
       imagePath={item.imagePath}
+      updateItemCount={(itemName, newItemCount) => updateItemCount(itemName, newItemCount, optionType)}
     />
   ));
-  return <Row>{optionItems}</Row>;
+  return (
+  <>
+  <h2>{optionType}</h2>
+  <p>{pricePerItem[optionType]} each</p>
+  <p>{optionType} total: {OrderDetails.totals[optionType]}</p>
+  <Row>{optionItems}</Row>
+  </>
+  );
 }

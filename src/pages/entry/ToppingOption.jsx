@@ -1,5 +1,6 @@
 import React from 'react';
 import { Col } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
 export default function ToppingOption({name, imagePath}) {
   return (
@@ -10,4 +11,14 @@ export default function ToppingOption({name, imagePath}) {
       />
     </Col>
   )
+}
+
+ToppingOption.defaultProps = {
+  name: '',
+  imagePath: ''
+}
+
+ToppingOption.propTypes = {
+  name: PropTypes.string,
+  imagePath: PropTypes.string,
 }

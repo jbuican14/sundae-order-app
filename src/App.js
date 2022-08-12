@@ -1,14 +1,18 @@
 import React from "react";
+import { Container } from 'react-bootstrap';
 import "./App.css";
-import ScoopOption from "./pages/entry/ScoopOption";
-import SummaryForm from "./pages/summary/SummaryForm";
+import { OrderDetailsProvider } from './contexts/OrderDetails';
+import OrderEntry from './pages/entry/OrderEntry';
 
 function App() {
   return (
-    <>
-      <ScoopOption />
-      <SummaryForm />
-    </>
+    <Container>
+      <OrderDetailsProvider>
+        {/* Summay page and entry page need provider */}
+        <OrderEntry />
+      </OrderDetailsProvider>
+      {/* Confirmation page doesn't need provider */}
+    </Container>
   );
 }
 
