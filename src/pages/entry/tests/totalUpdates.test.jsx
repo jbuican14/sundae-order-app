@@ -23,4 +23,32 @@ test("update scoop subtotal when scoop change", async () => {
   userEvent.clear(chocolateInput);
   userEvent.type(chocolateInput, "2");
   expect(scoopsSubtotal).toHaveTextContent("6.00")
+});
+
+test("update toppings subtotal when topping change", async () => {
+
+  // eslint-disable-next-line react/react-in-jsx-scope
+  render(<Options optionType="toppings"/>);
+
+  // start should be zero
+  const toppingsSubtotal = screen.getByAltText('Toppings total: £', {exact: false});
+  expect(toppingsSubtotal).toHaveTextContent("0.00");
+
+  // add cherries and check subtotal
+  const cherriesCheckbox = await screen.findByRole('checkbox', {
+    name: "Cherries",
+  });
+
+  userEvent.click(cherriesCheckbox);
+  expect(toppingsSubtotal).toHaveTextContent("1.50");
+
+  // add hot fudge and check subtotal
+  const hotFudgeCheckbox = screen.getByRole("checkbox", { name: "Hot fedge"});
+  userEvent.click(hotFudgeCheckbox);
+  expect(toppingsSubtotal).toHaveTextContent("3.00");
+
+  // remove one 
+  userEvent.click(hotFudgeCheckbox);
+  expect(toppingsSubtotal).toHaveTextContent("1.5"); 
+
 })
