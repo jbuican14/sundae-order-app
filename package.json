@@ -1,6 +1,7 @@
 {
   "name": "sundae-order-app",
   "version": "0.1.0",
+  "proxy" : "http://localhost:3000",
   "private": true,
   "dependencies": {
     "@testing-library/dom": "^8.15.0",

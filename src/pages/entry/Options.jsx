@@ -17,7 +17,13 @@ export default function Options({optionType}) {
   useEffect(() => {
     // optionType is 'scoops' or 'toppings'
     axios
-      .get(`http://localhost:3000/${optionType}`)
+      .get(`http://localhost:3030/${optionType}`, {
+        headers: {
+          'Access-Control-Allow-Origin': "*",
+           "accepts":"application/json"
+        
+        },
+      })
       .then((res) => setItems(res.data))
       // eslint-disable-next-line no-unused-vars
       .catch((err) => {
