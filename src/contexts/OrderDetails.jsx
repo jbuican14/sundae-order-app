@@ -1,17 +1,7 @@
 import React, {createContext, useContext, useState, useMemo, useEffect} from 'react';
 
 import { pricePerItem } from '../constants';
-
-//  format number as currency
-function formatCurrency(amt) {
-  return new Intl.NumberFormat('en-GB', {
-    style: "currency",
-    currency: "GBP",
-    minimumFractionDigits: 2
-  }).format(amt)
-}
-
-
+import { formatCurrency } from '../utilities';
 const OrderDetails = createContext();
 
 // custom hook to check if we are inside a provider
